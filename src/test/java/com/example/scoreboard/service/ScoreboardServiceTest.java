@@ -61,22 +61,15 @@ class ScoreboardServiceTest {
   }
 
   @Test
-  void finishesAndLooksUpMatchUntilHistoryEvictsIt() {
+  void finishesAndRemovesMatchFromSummary() {
     Match match = scoreboard.startMatch("Spain", "Brazil");
     scoreboard.updateScore(match.getMatchId(), 2, 1);
     Match finished = scoreboard.finishMatch(match.getMatchId());
 
     assertTrue(finished.isFinished());
     assertTrue(scoreboard.getSummary().isEmpty());
-    assertEquals(finished, scoreboard.getMatch(match.getMatchId()));
     assertCode(ErrorCode.MATCH_ALREADY_FINISHED, () -> scoreboard.updateScore(match.getMatchId(), 3, 2));
     assertCode(ErrorCode.MATCH_ALREADY_FINISHED, () -> scoreboard.finishMatch(match.getMatchId()));
-
-    for (int i = 0; i < 20; i++) {
-      Match other = scoreboard.startMatch("Home" + i, "Away" + i);
-      scoreboard.finishMatch(other.getMatchId());
-    }
-    assertCode(ErrorCode.MATCH_NOT_FOUND, () -> scoreboard.getMatch(match.getMatchId()));
   }
 
   @Test
@@ -84,7 +77,6 @@ class ScoreboardServiceTest {
     Match match = scoreboard.startMatch("Spain", "Brazil");
 
     assertCode(ErrorCode.INVALID_SCORE, () -> scoreboard.updateScore(match.getMatchId(), -1, 0));
-    assertCode(ErrorCode.MATCH_NOT_FOUND, () -> scoreboard.getMatch(999));
   }
 
   private static void assertCode(ErrorCode expected, Runnable operation) {

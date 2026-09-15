@@ -42,7 +42,10 @@ class InMemoryMatchRepositoryConcurrencyTest {
     } finally {
       executor.shutdownNow();
     }
-    Match finalMatch = scoreboard.getMatch(match.getMatchId());
+    Match finalMatch = scoreboard.getSummary().stream()
+        .filter(candidate -> candidate.getMatchId() == match.getMatchId())
+        .findFirst()
+        .orElseThrow();
     assertTrue(finalMatch.getHomeScore() >= 0);
     assertEquals(finalMatch.getHomeScore() + 1, finalMatch.getAwayScore());
   }

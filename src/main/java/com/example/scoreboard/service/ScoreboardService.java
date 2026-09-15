@@ -55,12 +55,4 @@ public final class ScoreboardService {
     return matchRepository.findActiveMatches().stream().sorted(SUMMARY_ORDER).toList();
   }
 
-  public Match getMatch(long matchId) {
-    return matchRepository
-        .findAny(matchId)
-        .orElseThrow(
-            () ->
-                new ScoreboardException(
-                    ErrorCode.MATCH_NOT_FOUND, "Match was not found: " + matchId));
-  }
 }
