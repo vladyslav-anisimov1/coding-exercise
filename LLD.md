@@ -111,7 +111,8 @@ The repository is deliberately small:
 
 ```java
 public interface MatchRepository {
-  Match create(String homeTeam, String awayTeam, Instant startedAt, long startOrder);
+  Match create(
+      long matchId, String homeTeam, String awayTeam, Instant startedAt, long startOrder);
 
   Match updateScore(long matchId, int homeScore, int awayScore);
 
