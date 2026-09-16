@@ -53,3 +53,9 @@ src/main/java/com/example/scoreboard
 ├── persistence
 └── service
 ```
+
+## Trade-offs
+
+- Since the application should be simple Java library, all information is kept in-memory. Idea with using DB was rejected for simplicity. It led to creation additional synchronization, etc.
+- No frameworks were added for simplicity of the library, but anyway it's designed extendable and could be integrated with Spring and other technologies.
+- The application was designed as a thread-safe, which brings locks, synchronization and might be overengineering for such a small app, but it can support concurrent operations.

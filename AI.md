@@ -23,3 +23,5 @@ AI assistance was used throughout the task for requirements analysis, low-level 
 - Keep public `Match` objects immutable and use internal per-match synchronization for updates and finish operations.
 - Use an active-team index to enforce case-insensitive uniqueness without a team dictionary.
 - Keep creation coordination and history synchronization narrow instead of using one global lock for every operation.
+
+https://chatgpt.com/s/cx_6aaa6e9b44288191b0f532ea262885c1
